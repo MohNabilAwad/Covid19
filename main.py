@@ -3,6 +3,7 @@ import bs4
 import json
 from ftplib import FTP
 import datetime
+import time
 
 #https://www.youtube.com/watch?v=e22HHgFqdm0
 page = requests.get("https://www.worldometers.info/coronavirus/")
@@ -48,3 +49,6 @@ ftp.storlines('STOR ' + filename, open(filename, 'rb'))
 ftp.quit()
 
 print("Done " + now.strftime("%Y-%m-%d %H:%M:%S"))
+
+time.sleep(30)
+
