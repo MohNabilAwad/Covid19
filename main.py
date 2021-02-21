@@ -46,3 +46,5 @@ ftp.cwd("/mohamad-awad.info/htdocs/")
 filename = 'data.json'
 ftp.storlines('STOR ' + filename, open(filename, 'rb'))
 ftp.quit()
+
+print("Done " + now.strftime("%Y-%m-%d %H:%M:%S"))
