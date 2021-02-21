@@ -50,4 +50,4 @@ ftp.quit()
 
 print("Done " + now.strftime("%Y-%m-%d %H:%M:%S"))
 
-
+time.sleep(10)
