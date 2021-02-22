@@ -24,7 +24,7 @@ ICUBEDS = list(reader)
 data = {}
 data['Info'] = []
 data['Info'].append({
-    'Last Update': now.strftime("%Y-%m-%d %H:%M:%S")
+    'LastUpdate': now.strftime("%Y-%m-%d %H:%M:%S")
                     })
 data['Covid19'] = []
 #print(results)
