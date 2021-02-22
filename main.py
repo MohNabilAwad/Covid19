@@ -64,4 +64,6 @@ ftp.storlines('STOR ' + filename, open(filename, 'rb'))
 ftp.quit()
 
 print("Done " + now.strftime("%Y-%m-%d %H:%M:%S"))
+print("New Version")
+
 
