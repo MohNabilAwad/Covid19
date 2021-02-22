@@ -48,8 +48,8 @@ for i in results:
                 'CountryCode': CountryCode,
                 'ActiveCases': i["ActiveCases"],
                 'Population': str(i["Population"]).replace(" ",""),
-                'Active Cases per 100k': round(int(str(str(i["ActiveCases"]).replace(",","")).replace(" ",""))/(int(str(i["Population"]).replace(",",""))/100000),2),
-                'ICU Beds per 100k': round(float(icuBeds),2)
+                'ActiveCasesPer100k': round(int(str(str(i["ActiveCases"]).replace(",","")).replace(" ",""))/(int(str(i["Population"]).replace(",",""))/100000),2),
+                'ICUBedsPer100k': round(float(icuBeds),2)
                 })
 
 with open('data.json', 'w') as outfile:
@@ -64,5 +64,5 @@ ftp.storlines('STOR ' + filename, open(filename, 'rb'))
 ftp.quit()
 
 print("Done " + now.strftime("%Y-%m-%d %H:%M:%S"))
-print("New Version V2.1")
+print("New Version V.2")
 
