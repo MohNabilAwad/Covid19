@@ -21,6 +21,35 @@ csv_file = open('ICU Beds.csv')
 reader = csv.reader(csv_file, delimiter=',')
 ICUBEDS = list(reader)
 
+one = 'Lc05' # smaller than 0.05
+two = 'Mc05' #bigger than 0.05
+three = 'Mc10' # bigger than 0.1
+four = 'Mc50' # bigger than 0.5
+five = 'M1' # bigger than 1
+six = 'M2' # bigger than 2
+seven = 'M10' # bigger than 10
+eight = 'M50' # bigger than 50
+
+def RateCategory(Rate):
+    if(Rate < 0.05):
+        return one
+    if (0.05 < Rate < 0.1):
+        return two
+    if(0.1 < Rate < 0.5):
+        return three
+    if(0.5<Rate<1):
+        return four
+    if(1<Rate<2):
+        return five
+    if(2<Rate<10):
+        return six
+    if(10<Rate<50):
+        return seven
+    if(Rate>50):
+        return eight
+    if(Rate == 0 ):
+        return ""
+
 data = {}
 data['Info'] = []
 data['Info'].append({
@@ -49,8 +78,10 @@ for i in results:
                 'ActiveCases': i["ActiveCases"],
                 'Population': str(i["Population"]).replace(" ",""),
                 'ActiveCasesPer100k': round(int(str(str(i["ActiveCases"]).replace(",","")).replace(" ",""))/(int(str(i["Population"]).replace(",",""))/100000),2),
-                'ICUBedsPer100k': round(float(icuBeds),2)
+                'ICUBedsPer100k': round(float(icuBeds),2),
+                'CountryCategory': RateCategory(round(float(icuBeds),2))
                 })
+
 
 with open('data.json', 'w') as outfile:
     json.dump(data, outfile)
