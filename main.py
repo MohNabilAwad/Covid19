@@ -22,7 +22,7 @@ reader = csv.reader(csv_file, delimiter=',')
 ICUBEDS = list(reader)
 
 one = 'Lc05' # smaller than 0.05
-two = 'Mc05' #bigger than 0.05
+two = 'Mc05' # bigger than 0.05
 three = 'Mc10' # bigger than 0.1
 four = 'Mc50' # bigger than 0.5
 five = 'M1' # bigger than 1
@@ -31,7 +31,7 @@ seven = 'M10' # bigger than 10
 eight = 'M50' # bigger than 50
 
 def RateCategory(Rate):
-    if(Rate < 0.05):
+    if(0.0000001 < Rate < 0.05):
         return one
     if (0.05 < Rate < 0.1):
         return two
@@ -48,7 +48,7 @@ def RateCategory(Rate):
     if(Rate>50):
         return eight
     if(Rate == 0 ):
-        return ""
+        return "def"
 
 data = {}
 data['Info'] = []
