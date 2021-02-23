@@ -66,14 +66,17 @@ for i in results:
                 i["ActiveCases"]= "0"
             if(i["Population"]==' '):
                 i["Population"]= "1"
-            for j in range(0,219):
+            for j in range(0,220):
                 if (str(i["Country"]) == str(ICUBEDS[j][0])):
                     icuBeds=ICUBEDS[j][1]
-            for j in range(0,219):
+            for j in range(0,220):
                 if (str(i["Country"]) == str(ICUBEDS[j][0])):
                     CountryCode=ICUBEDS[j][2]
+                    break
+                if (str(i["Country"]) == "Brunei "):
+                    CountryCode = "BRN"
             data['Covid19'].append({
-                'Country': i["Country"].replace("\n",""),
+                'Country': i["Country"].replace("\n","") ,
                 'CountryCode': CountryCode,
                 'ActiveCases': i["ActiveCases"],
                 'Population': str(i["Population"]).replace(" ",""),
