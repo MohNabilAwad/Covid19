@@ -1,0 +1,300 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Covid19</title>
+<link rel="stylesheet" href="https://www.duerr-technik.eu/system/modules/cookiebar/assets/dist/cookiebar.min.css?v=e2eb02e7">
+	<link rel="stylesheet" href="https://www.duerr-technik.eu/assets/tablesorter/css/tablesorter.min.css?v=0bcb6c75"><link rel="stylesheet" href="https://www.duerr-technik.eu/assets/colorbox/css/colorbox.min.css?v=594d2055"><link rel="stylesheet" href="https://www.duerr-technik.eu/files/duerrtechnik/theme/fonts/all.css?v=4b98d1af"><link rel="stylesheet" href="https://www.duerr-technik.eu/files/duerrtechnik/theme.old/plugins/ion.rangeSlider/css/ion.rangeSlider.css?v=64594001"><link rel="stylesheet" href="https://www.duerr-technik.eu/files/duerrtechnik/theme.old/plugins/layer_slider/css/layerslider.css?v=64594001"><link rel="stylesheet" href="https://www.duerr-technik.eu/files/duerrtechnik/theme/css/jquery.mCustomScrollbar.min.css?v=f53e4c45"><link rel="stylesheet" href="https://www.duerr-technik.eu/files/duerrtechnik/theme.old/plugins/ion.rangeSlider/css/ion.rangeSlider.skinHTML5.css?v=64594001"><link rel="stylesheet" href="https://www.duerr-technik.eu/files/duerrtechnik/theme/plugins/slick/slick-theme.css?v=a47a0fbd"><link rel="stylesheet" href="https://www.duerr-technik.eu/files/duerrtechnik/theme/plugins/slick/slick.css?v=a47a0fbd"><link rel="stylesheet" href="https://www.duerr-technik.eu/files/duerrtechnik/theme/css/styles.css?v=774880a3"><link rel="stylesheet" href="https://www.duerr-technik.eu/files/duerrtechnik/theme/css/responsive-tables.css?v=d8b80290"><link rel="stylesheet" href="https://www.duerr-technik.eu/files/duerrtechnik/theme/css/custom.css?v=9e73e595"><link rel="stylesheet" href="https://www.duerr-technik.eu/assets/css/print-css.css?v=2b2c9cde" media="print">  <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+	<script src="Script.js"></script>
+
+</head>
+<!-- Code Start -->
+<body>
+
+
+<script src="d3.v3.min.js"></script>
+ <script src="topojson.v1.min.js"></script>
+  <!-- I recommend you host this file on your own, since this will change without warning -->
+ <script src="datamaps.world.min.js"></script>
+
+    <ul style="display: none;" >
+    </ul>
+	
+	
+	
+	<div id="MapChart" style="position: relative; width: 600px; max-height: 400px;" >
+	<div class="floating">Floating Div</div>
+	</div>
+     <script>
+
+        var myList = document.querySelector('ul');	 
+		 fetch('http://mohamad-awad.info/data.json')
+    .then(function(response) {
+      if (!response.ok) {
+        throw new Error("HTTP error, status = " + response.status);
+      }
+      return response.json();
+    })
+    .then(function(json) {
+      for(var i = 0; i < json.Covid19.length; i++) {
+        var listItem = document.createElement('li');
+        listItem.innerHTML = '<strong>' + json.Covid19[i].Country + '</strong>';
+        listItem.innerHTML +=' ' + json.Covid19[i].CountryCode + '-';
+		listItem.innerHTML +=' ' + json.Covid19[i].ICUBedsPer100k + '-' ;
+        listItem.innerHTML +='<strong id="' + json.Covid19[i].CountryCode + '">' + json.Covid19[i].CountryCategory + '</strong>';
+        myList.appendChild(listItem);
+      }
+    })
+    .catch(function(error) {
+      var p = document.createElement('p');
+      p.appendChild(
+        document.createTextNode('Error: ' + error.message)
+      );
+      document.body.insertBefore(p, myList);
+    });
+		 setTimeout(function(){MapLoad()},100);
+
+		// seperator
+		function MapLoad(){
+		 setTimeout(Datamap, 300);
+		var map = new Datamap({
+        scope: 'world',
+        element: document.getElementById('MapChart'),
+        projection: 'mercator',
+        height: 500,
+        fills: {
+          defaultFill: 'rgba(224,224,224,1)',def: 'rgba(224,224,224,1)',Lc05: 'rgba(158,72,14,1)',Mc05: 'rgba(204,72,103,1)',Mc10: 'rgba(223,145,163,1)',Mc50: 'rgba(240,198,195,1)', M1: 'rgba(248,242,158,1)',M2: 'rgba(208,211,162,1)',M10: 'rgba(163,173,98,1)',M50: 'rgba(82,183,118,1)'
+        },
+			
+        data: {
+AFG: {fillKey: document.getElementById('AFG').innerHTML},
+ALB: {fillKey: document.getElementById('ALB').innerHTML},
+DZA: {fillKey: document.getElementById('DZA').innerHTML},
+AND: {fillKey: document.getElementById('AND').innerHTML},
+AGO: {fillKey: document.getElementById('AGO').innerHTML},
+AIA: {fillKey: document.getElementById('AIA').innerHTML},
+ARG: {fillKey: document.getElementById('ARG').innerHTML},
+ARM: {fillKey: document.getElementById('ARM').innerHTML},
+ABW: {fillKey: document.getElementById('ABW').innerHTML},
+AUS: {fillKey: document.getElementById('AUS').innerHTML},
+AUT: {fillKey: document.getElementById('AUT').innerHTML},
+AZE: {fillKey: document.getElementById('AZE').innerHTML},
+BHS: {fillKey: document.getElementById('BHS').innerHTML},
+BHR: {fillKey: document.getElementById('BHR').innerHTML},
+BGD: {fillKey: document.getElementById('BGD').innerHTML},
+BRB: {fillKey: document.getElementById('BRB').innerHTML},
+BLR: {fillKey: document.getElementById('BLR').innerHTML},
+BEL: {fillKey: document.getElementById('BEL').innerHTML},
+BLZ: {fillKey: document.getElementById('BLZ').innerHTML},
+BEN: {fillKey: document.getElementById('BEN').innerHTML},
+BMU: {fillKey: document.getElementById('BMU').innerHTML},
+BTN: {fillKey: document.getElementById('BTN').innerHTML},
+BOL: {fillKey: document.getElementById('BOL').innerHTML},
+BWA: {fillKey: document.getElementById('BWA').innerHTML},
+BRA: {fillKey: document.getElementById('BRA').innerHTML},
+VGB: {fillKey: document.getElementById('VGB').innerHTML},
+BRN: {fillKey: document.getElementById('BRN').innerHTML},
+BGR: {fillKey: document.getElementById('BGR').innerHTML},
+BFA: {fillKey: document.getElementById('BFA').innerHTML},
+BDI: {fillKey: document.getElementById('BDI').innerHTML},
+CPV: {fillKey: document.getElementById('CPV').innerHTML},
+KHM: {fillKey: document.getElementById('KHM').innerHTML},
+CMR: {fillKey: document.getElementById('CMR').innerHTML},
+CAN: {fillKey: document.getElementById('CAN').innerHTML},
+CAF: {fillKey: document.getElementById('CAF').innerHTML},
+NAA: {fillKey: document.getElementById('NAA').innerHTML},
+CYM: {fillKey: document.getElementById('CYM').innerHTML},
+TCD: {fillKey: document.getElementById('TCD').innerHTML},
+GGY: {fillKey: document.getElementById('GGY').innerHTML},
+CHL: {fillKey: document.getElementById('CHL').innerHTML},
+CHN: {fillKey: document.getElementById('CHN').innerHTML},
+COL: {fillKey: document.getElementById('COL').innerHTML},
+COM: {fillKey: document.getElementById('COM').innerHTML},
+COG: {fillKey: document.getElementById('COG').innerHTML},
+CRI: {fillKey: document.getElementById('CRI').innerHTML},
+HRV: {fillKey: document.getElementById('HRV').innerHTML},
+CUB: {fillKey: document.getElementById('CUB').innerHTML},
+CYP: {fillKey: document.getElementById('CYP').innerHTML},
+CZE: {fillKey: document.getElementById('CZE').innerHTML},
+DNK: {fillKey: document.getElementById('DNK').innerHTML},
+DJI: {fillKey: document.getElementById('DJI').innerHTML},
+DMA: {fillKey: document.getElementById('DMA').innerHTML},
+DOM: {fillKey: document.getElementById('DOM').innerHTML},
+COD: {fillKey: document.getElementById('COD').innerHTML},
+ECU: {fillKey: document.getElementById('ECU').innerHTML},
+EGY: {fillKey: document.getElementById('EGY').innerHTML},
+SLV: {fillKey: document.getElementById('SLV').innerHTML},
+GNQ: {fillKey: document.getElementById('GNQ').innerHTML},
+ERI: {fillKey: document.getElementById('ERI').innerHTML},
+EST: {fillKey: document.getElementById('EST').innerHTML},
+SWZ: {fillKey: document.getElementById('SWZ').innerHTML},
+ETH: {fillKey: document.getElementById('ETH').innerHTML},
+FRO: {fillKey: document.getElementById('FRO').innerHTML},
+FLK: {fillKey: document.getElementById('FLK').innerHTML},
+FJI: {fillKey: document.getElementById('FJI').innerHTML},
+FIN: {fillKey: document.getElementById('FIN').innerHTML},
+FRA: {fillKey: document.getElementById('FRA').innerHTML},
+GUF: {fillKey: document.getElementById('GUF').innerHTML},
+PYF: {fillKey: document.getElementById('PYF').innerHTML},
+GAB: {fillKey: document.getElementById('GAB').innerHTML},
+GMB: {fillKey: document.getElementById('GMB').innerHTML},
+GEO: {fillKey: document.getElementById('GEO').innerHTML},
+DEU: {fillKey: document.getElementById('DEU').innerHTML},
+GHA: {fillKey: document.getElementById('GHA').innerHTML},
+GIB: {fillKey: document.getElementById('GIB').innerHTML},
+GRC: {fillKey: document.getElementById('GRC').innerHTML},
+GRL: {fillKey: document.getElementById('GRL').innerHTML},
+GRD: {fillKey: document.getElementById('GRD').innerHTML},
+GLP: {fillKey: document.getElementById('GLP').innerHTML},
+GTM: {fillKey: document.getElementById('GTM').innerHTML},
+GIN: {fillKey: document.getElementById('GIN').innerHTML},
+GNB: {fillKey: document.getElementById('GNB').innerHTML},
+GUY: {fillKey: document.getElementById('GUY').innerHTML},
+HTI: {fillKey: document.getElementById('HTI').innerHTML},
+HND: {fillKey: document.getElementById('HND').innerHTML},
+HKG: {fillKey: document.getElementById('HKG').innerHTML},
+HUN: {fillKey: document.getElementById('HUN').innerHTML},
+ISL: {fillKey: document.getElementById('ISL').innerHTML},
+IND: {fillKey: document.getElementById('IND').innerHTML},
+IDN: {fillKey: document.getElementById('IDN').innerHTML},
+IRN: {fillKey: document.getElementById('IRN').innerHTML},
+IRQ: {fillKey: document.getElementById('IRQ').innerHTML},
+IRL: {fillKey: document.getElementById('IRL').innerHTML},
+IMN: {fillKey: document.getElementById('IMN').innerHTML},
+ISR: {fillKey: document.getElementById('ISR').innerHTML},
+ITA: {fillKey: document.getElementById('ITA').innerHTML},
+CIV: {fillKey: document.getElementById('CIV').innerHTML},
+JAM: {fillKey: document.getElementById('JAM').innerHTML},
+JPN: {fillKey: document.getElementById('JPN').innerHTML},
+JOR: {fillKey: document.getElementById('JOR').innerHTML},
+KAZ: {fillKey: document.getElementById('KAZ').innerHTML},
+KEN: {fillKey: document.getElementById('KEN').innerHTML},
+KWT: {fillKey: document.getElementById('KWT').innerHTML},
+KGZ: {fillKey: document.getElementById('KGZ').innerHTML},
+LAO: {fillKey: document.getElementById('LAO').innerHTML},
+LVA: {fillKey: document.getElementById('LVA').innerHTML},
+LBN: {fillKey: document.getElementById('LBN').innerHTML},
+LSO: {fillKey: document.getElementById('LSO').innerHTML},
+LBR: {fillKey: document.getElementById('LBR').innerHTML},
+LBY: {fillKey: document.getElementById('LBY').innerHTML},
+LIE: {fillKey: document.getElementById('LIE').innerHTML},
+LTU: {fillKey: document.getElementById('LTU').innerHTML},
+LUX: {fillKey: document.getElementById('LUX').innerHTML},
+MAC: {fillKey: document.getElementById('MAC').innerHTML},
+MDG: {fillKey: document.getElementById('MDG').innerHTML},
+MWI: {fillKey: document.getElementById('MWI').innerHTML},
+MYS: {fillKey: document.getElementById('MYS').innerHTML},
+MDV: {fillKey: document.getElementById('MDV').innerHTML},
+MLI: {fillKey: document.getElementById('MLI').innerHTML},
+MLT: {fillKey: document.getElementById('MLT').innerHTML},
+MHL: {fillKey: document.getElementById('MHL').innerHTML},
+MTQ: {fillKey: document.getElementById('MTQ').innerHTML},
+MRT: {fillKey: document.getElementById('MRT').innerHTML},
+MUS: {fillKey: document.getElementById('MUS').innerHTML},
+MYT: {fillKey: document.getElementById('MYT').innerHTML},
+MEX: {fillKey: document.getElementById('MEX').innerHTML},
+FSM: {fillKey: document.getElementById('FSM').innerHTML},
+MDA: {fillKey: document.getElementById('MDA').innerHTML},
+MCO: {fillKey: document.getElementById('MCO').innerHTML},
+MNG: {fillKey: document.getElementById('MNG').innerHTML},
+MNE: {fillKey: document.getElementById('MNE').innerHTML},
+MSR: {fillKey: document.getElementById('MSR').innerHTML},
+MAR: {fillKey: document.getElementById('MAR').innerHTML},
+MOZ: {fillKey: document.getElementById('MOZ').innerHTML},
+MMR: {fillKey: document.getElementById('MMR').innerHTML},
+NAM: {fillKey: document.getElementById('NAM').innerHTML},
+NPL: {fillKey: document.getElementById('NPL').innerHTML},
+NLD: {fillKey: document.getElementById('NLD').innerHTML},
+NCL: {fillKey: document.getElementById('NCL').innerHTML},
+NZL: {fillKey: document.getElementById('NZL').innerHTML},
+NIC: {fillKey: document.getElementById('NIC').innerHTML},
+NER: {fillKey: document.getElementById('NER').innerHTML},
+NGA: {fillKey: document.getElementById('NGA').innerHTML},
+MKD: {fillKey: document.getElementById('MKD').innerHTML},
+NOR: {fillKey: document.getElementById('NOR').innerHTML},
+OMN: {fillKey: document.getElementById('OMN').innerHTML},
+PAK: {fillKey: document.getElementById('PAK').innerHTML},
+PSE: {fillKey: document.getElementById('PSE').innerHTML},
+PAN: {fillKey: document.getElementById('PAN').innerHTML},
+PNG: {fillKey: document.getElementById('PNG').innerHTML},
+PRY: {fillKey: document.getElementById('PRY').innerHTML},
+PER: {fillKey: document.getElementById('PER').innerHTML},
+PHL: {fillKey: document.getElementById('PHL').innerHTML},
+POL: {fillKey: document.getElementById('POL').innerHTML},
+PRT: {fillKey: document.getElementById('PRT').innerHTML},
+QAT: {fillKey: document.getElementById('QAT').innerHTML},
+ROU: {fillKey: document.getElementById('ROU').innerHTML},
+RUS: {fillKey: document.getElementById('RUS').innerHTML},
+RWA: {fillKey: document.getElementById('RWA').innerHTML},
+KOR: {fillKey: document.getElementById('KOR').innerHTML},
+KNA: {fillKey: document.getElementById('KNA').innerHTML},
+LCA: {fillKey: document.getElementById('LCA').innerHTML},
+MAF: {fillKey: document.getElementById('MAF').innerHTML},
+SPM: {fillKey: document.getElementById('SPM').innerHTML},
+WSM: {fillKey: document.getElementById('WSM').innerHTML},
+SMR: {fillKey: document.getElementById('SMR').innerHTML},
+STP: {fillKey: document.getElementById('STP').innerHTML},
+SAU: {fillKey: document.getElementById('SAU').innerHTML},
+SEN: {fillKey: document.getElementById('SEN').innerHTML},
+SRB: {fillKey: document.getElementById('SRB').innerHTML},
+SYC: {fillKey: document.getElementById('SYC').innerHTML},
+SLE: {fillKey: document.getElementById('SLE').innerHTML},
+SGP: {fillKey: document.getElementById('SGP').innerHTML},
+SXM: {fillKey: document.getElementById('SXM').innerHTML},
+SVK: {fillKey: document.getElementById('SVK').innerHTML},
+SVN: {fillKey: document.getElementById('SVN').innerHTML},
+SLB: {fillKey: document.getElementById('SLB').innerHTML},
+SOM: {fillKey: document.getElementById('SOM').innerHTML},
+ZAF: {fillKey: document.getElementById('ZAF').innerHTML},
+SSD: {fillKey: document.getElementById('SSD').innerHTML},
+ESP: {fillKey: document.getElementById('ESP').innerHTML},
+LKA: {fillKey: document.getElementById('LKA').innerHTML},
+BLM: {fillKey: document.getElementById('BLM').innerHTML},
+VCT: {fillKey: document.getElementById('VCT').innerHTML},
+SDN: {fillKey: document.getElementById('SDN').innerHTML},
+SUR: {fillKey: document.getElementById('SUR').innerHTML},
+SWE: {fillKey: document.getElementById('SWE').innerHTML},
+CHE: {fillKey: document.getElementById('CHE').innerHTML},
+SYR: {fillKey: document.getElementById('SYR').innerHTML},
+TWN: {fillKey: document.getElementById('TWN').innerHTML},
+TJK: {fillKey: document.getElementById('TJK').innerHTML},
+TZA: {fillKey: document.getElementById('TZA').innerHTML},
+THA: {fillKey: document.getElementById('THA').innerHTML},
+TLS: {fillKey: document.getElementById('TLS').innerHTML},
+TGO: {fillKey: document.getElementById('TGO').innerHTML},
+TTO: {fillKey: document.getElementById('TTO').innerHTML},
+TUN: {fillKey: document.getElementById('TUN').innerHTML},
+TUR: {fillKey: document.getElementById('TUR').innerHTML},
+TCA: {fillKey: document.getElementById('TCA').innerHTML},
+ARE: {fillKey: document.getElementById('ARE').innerHTML},
+UGA: {fillKey: document.getElementById('UGA').innerHTML},
+GBR: {fillKey: document.getElementById('GBR').innerHTML},
+UKR: {fillKey: document.getElementById('UKR').innerHTML},
+URY: {fillKey: document.getElementById('URY').innerHTML},
+USA: {fillKey: document.getElementById('USA').innerHTML},
+UZB: {fillKey: document.getElementById('UZB').innerHTML},
+VUT: {fillKey: document.getElementById('VUT').innerHTML},
+VAT: {fillKey: document.getElementById('VAT').innerHTML},
+VEN: {fillKey: document.getElementById('VEN').innerHTML},
+VNM: {fillKey: document.getElementById('VNM').innerHTML},
+WLF: {fillKey: document.getElementById('WLF').innerHTML},
+ESH: {fillKey: document.getElementById('ESH').innerHTML},
+YEM: {fillKey: document.getElementById('YEM').innerHTML},
+ZMB: {fillKey: document.getElementById('ZMB').innerHTML},
+ZWE: {fillKey: document.getElementById('ZWE').innerHTML}
+   
+        }
+      }) ;
+		}// JavaScript Document
+     </script>
+
+	
+		
+	
+	
+	
+	
+<!-- Code End -->	
+
+</body>
+</html>
