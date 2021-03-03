@@ -108,7 +108,7 @@ with open('data.json', 'w') as f:
 
 
 #upload data to guthub
-token = "910a85898af6c61e5371afbe847ee3c1194a85cb "
+token = "d68979a16bd28adcfa0fac6ae457932befc17799  "
 repo = 'MohNabilAwad/Covid19'
 path = 'data.json'
 data = open("data.json", "r").read()
