@@ -11,6 +11,7 @@ constantly==15.1.0
 cryptography==3.4.6
 cssselect==1.1.0
 decorator==4.4.2
+Deprecated==1.2.11
 distlib==0.3.1
 et-xmlfile==1.0.1
 fake-useragent==0.1.11
@@ -45,7 +46,9 @@ pyasn1-modules==0.2.8
 PyAutoGUI==0.9.52
 pycparser==2.20
 PyGetWindow==0.0.9
+PyGithub==1.54.1
 PyHamcrest==2.0.2
+PyJWT==1.7.1
 PyMsgBox==1.0.9
 pyparsing==2.4.7
 pyperclip==1.8.1
@@ -68,4 +71,5 @@ urllib3==1.26.2
 virtualenv==20.4.2
 virtualenv-clone==0.5.4
 w3lib==1.22.0
+wrapt==1.12.1
 zope.interface==5.2.0
