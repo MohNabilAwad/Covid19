@@ -108,7 +108,7 @@ with open('data.json', 'w') as f:
 
 
 #upload data to guthub
-token = "d68979a16bd28adcfa0fac6ae457932befc17799  "
+token = "02bf29c25181460ec263b9"+"fcde985fecb5cc264f"
 repo = 'MohNabilAwad/Covid19'
 path = 'data.json'
 data = open("data.json", "r").read()
@@ -128,9 +128,9 @@ r = requests.put(
         "sha":GitHubText["sha"]
     }
 )
-#print(r.status_code)
-#print(r.json())
-#print(r)
+print(r.status_code)
+print(r.json())
+print(r)
 
 
 
