@@ -9,9 +9,9 @@ import base64
 
 # https://www.youtube.com/watch?v=e22HHgFqdm0
 page = requests.get("https://www.worldometers.info/coronavirus/")
-soup = bs4.BeautifulSoup(page.text,'lxml')
+soup = bs4.BeautifulSoup(page.text, 'lxml')
 
-table = soup.find('table',id="main_table_countries_today")
+table = soup.find('table', id="main_table_countries_today")
 
 headers = [heading.text.replace(",Other","") for heading in table.find_all('th')]
 table_rows = [row for row in table.find_all('tr')]
@@ -80,6 +80,11 @@ for i in results:
                     CountryCode=ICUBEDS[j][2]
                 if (str(i["Country"]) == "Brunei "):
                     CountryCode = "BRN"
+                ActCases100 = round(int(str(str(i["ActiveCases"]).replace(",","")).replace(" ",""))/(int(str(i["Population"]).replace(",",""))/100000),2)
+                if(ActCases100!=0):
+                    Rate= float(icuBeds) /ActCases100
+                else:
+                    Rate=0
             data['Covid19'].append({
                 'Country': i["Country"].replace("\n","") ,
                 'CountryDE': CountryDE,
@@ -87,10 +92,10 @@ for i in results:
                 'CountryFR': CountryES,
                 'CountryCode': CountryCode,
                 'ActiveCases': i["ActiveCases"],
-                'Population': str(i["Population"]).replace(" ",""),
-                'ActiveCasesPer100k': round(int(str(str(i["ActiveCases"]).replace(",","")).replace(" ",""))/(int(str(i["Population"]).replace(",",""))/100000),2),
-                'ICUBedsPer100k': round(float(icuBeds),2),
-                'CountryCategory': RateCategory(round(float(icuBeds),2))
+                'Population/100k': int(str(str(i["Population"]).replace(" ","")).replace(",","")),
+                'ActiveCasesPer100k': ActCases100,
+                'ICUBedsPer100k': round(float(Rate),2),
+                'CountryCategory': RateCategory(round(float(Rate),2))
                 })
 
 
