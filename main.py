@@ -4,6 +4,8 @@ import json
 from ftplib import FTP
 import datetime
 import csv
+import requests
+import base64
 
 # https://www.youtube.com/watch?v=e22HHgFqdm0
 page = requests.get("https://www.worldometers.info/coronavirus/")
@@ -17,9 +19,10 @@ table_rows = [row for row in table.find_all('tr')]
 results = [{headers[index]:cell.text for index,cell in enumerate(row.find_all('td'))} for row in table_rows]
 now = datetime.datetime.now()
 
-csv_file = open('ICU Beds.csv')
+csv_file = open('ICU Beds.csv', encoding="utf8")
 reader = csv.reader(csv_file, delimiter=',')
 ICUBEDS = list(reader)
+ICUBEDS[0][0] = ICUBEDS[0][0].replace("\ufeff","")
 
 one = 'Lc05' # smaller than 0.05
 two = 'Mc05' # bigger than 0.05
@@ -69,14 +72,19 @@ for i in results:
             for j in range(0,220):
                 if (str(i["Country"]) == str(ICUBEDS[j][0])):
                     icuBeds=ICUBEDS[j][1]
+                    CountryDE=ICUBEDS[j][3]
+                    CountryFR=ICUBEDS[j][4]
+                    CountryES=ICUBEDS[j][5]
             for j in range(0,220):
                 if (str(i["Country"]) == str(ICUBEDS[j][0])):
                     CountryCode=ICUBEDS[j][2]
-                    break
                 if (str(i["Country"]) == "Brunei "):
                     CountryCode = "BRN"
             data['Covid19'].append({
                 'Country': i["Country"].replace("\n","") ,
+                'CountryDE': CountryDE,
+                'CountryES': CountryFR,
+                'CountryFR': CountryES,
                 'CountryCode': CountryCode,
                 'ActiveCases': i["ActiveCases"],
                 'Population': str(i["Population"]).replace(" ",""),
@@ -89,6 +97,46 @@ for i in results:
 with open('data.json', 'w') as outfile:
     json.dump(data, outfile)
 
+with open('data.json', 'r') as f:
+    json_data = json.load(f)
+    data_list = json_data['Covid19']
+
+    json_data['Covid19'] = sorted(data_list, key=lambda k:k ['ICUBedsPer100k'],reverse=True)
+
+with open('data.json', 'w') as f:
+    json.dump(json_data, f)
+
+
+#upload data to guthub
+token = "910a85898af6c61e5371afbe847ee3c1194a85cb "
+repo = 'MohNabilAwad/Covid19'
+path = 'data.json'
+data = open("data.json", "r").read()
+
+# to get the key for github
+response = requests.get('https://api.github.com/repos/MohNabilAwad/Covid19/contents/data.json')
+GitHubText = json.loads(response.text)
+r = requests.put(
+    f'https://api.github.com/repos/{repo}/contents/{path}',
+    headers = {
+        'Authorization': f'Token {token}'
+    },
+    json = {
+        "message": "add new file",
+        "content": base64.b64encode(data.encode()).decode(),
+        "branch": "master",
+        "sha":GitHubText["sha"]
+    }
+)
+#print(r.status_code)
+#print(r.json())
+#print(r)
+
+
+
+
+
+# upload data to my host
 FTP.maxline = 163840
 ftp = FTP('ftpupload.net')
 ftp.login(user="epiz_26155908",passwd="CziCHHeOvM3jNLJ")
@@ -99,4 +147,3 @@ ftp.quit()
 
 print("Done " + now.strftime("%Y-%m-%d %H:%M:%S"))
 print("New Version V.2")
-
