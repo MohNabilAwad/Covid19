@@ -69,6 +69,9 @@ for i in results:
                 i["ActiveCases"]= "0"
             if(i["Population"]==' '):
                 i["Population"]= "1"
+            if (str(i["Country"]) == "Brunei "):
+                CountryCode = "BRN"
+                i["Country"] = "Brunei"
             for j in range(0,220):
                 if (str(i["Country"]) == str(ICUBEDS[j][0])):
                     icuBeds=ICUBEDS[j][1]
@@ -78,11 +81,9 @@ for i in results:
             for j in range(0,220):
                 if (str(i["Country"]) == str(ICUBEDS[j][0])):
                     CountryCode=ICUBEDS[j][2]
-                if (str(i["Country"]) == "Brunei "):
-                    CountryCode = "BRN"
-                ActCases100 = round(int(str(str(i["ActiveCases"]).replace(",","")).replace(" ",""))/(int(str(i["Population"]).replace(",",""))/100000),2)
+                ActCases100 = int(str(str(i["ActiveCases"]).replace(",","")).replace(" ",""))/(int(str(i["Population"]).replace(",",""))/100000)
                 if(ActCases100!=0):
-                    Rate= float(icuBeds) /ActCases100
+                    Rate= float(icuBeds)/ActCases100
                 else:
                     Rate=0
             data['Covid19'].append({
@@ -94,6 +95,7 @@ for i in results:
                 'ActiveCases': i["ActiveCases"],
                 'Population/100k': int(str(str(i["Population"]).replace(" ","")).replace(",","")),
                 'ActiveCasesPer100k': ActCases100,
+                'ICU Beds per 100k before Rate':icuBeds,
                 'ICUBedsPer100k': round(float(Rate),2),
                 'CountryCategory': RateCategory(float(Rate))
                 })
