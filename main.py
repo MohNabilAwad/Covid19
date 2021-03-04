@@ -95,7 +95,7 @@ for i in results:
                 'Population/100k': int(str(str(i["Population"]).replace(" ","")).replace(",","")),
                 'ActiveCasesPer100k': ActCases100,
                 'ICUBedsPer100k': round(float(Rate),2),
-                'CountryCategory': RateCategory(round(float(Rate),2))
+                'CountryCategory': RateCategory(float(Rate))
                 })
 
 
